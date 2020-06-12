@@ -4,6 +4,7 @@ include: "*.view.lkml"         # include all views in this project
 include: "bigquery_audit.dashboard.lookml"  # include all dashboards in this project
 
 explore: bigquery_data_access {
+  hidden: yes
   view_label: "BigQuery Data Access"
   label: "BigQuery Data Access Logs"
 
