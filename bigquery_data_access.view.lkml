@@ -5,7 +5,7 @@ view: bigquery_data_access {
         *
       FROM
         -- `auditv3.cloudaudit_googleapis_com_data_access`
-        `gcp_logs.cloudaudit_googleapis_com_data_access_20200611`
+        `gcp_logs.cloudaudit_googleapis_com_data_access_*`
       WHERE
         {% condition date_filter %} timestamp {% endcondition %} ;;
   }
