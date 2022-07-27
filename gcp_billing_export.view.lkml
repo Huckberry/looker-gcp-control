@@ -4,8 +4,8 @@ view: gcp_billing_export {
       SELECT
         *,
         GENERATE_UUID() as pk
-      FROM
-        gcp_billing.gcp_billing_export_v1_01667F_20BEC3_5BEBDD
+      FROM `huckberry-billing.gcp_billing.gcp_billing_export_*`
+       -- `gcp_billing.gcp_billing_export_v1_01667F_20BEC3_5BEBDD`
       WHERE
         {% condition date_filter %} _PARTITIONTIME {% endcondition %} ;;
   }
