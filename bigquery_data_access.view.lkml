@@ -698,6 +698,28 @@ view: bigquery_data_access_query {
     sql: ${TABLE}.query ;;
   }
 
+  dimension: derived_query_type {
+    type: string
+    sql: CASE WHEN LOWER(${query}) LIKE '%create or replace table%' THEN 'Create'
+              WHEN LOWER(${query}) LIKE 'delete %' THEN 'Delete'
+              WHEN LOWER(${query}) LIKE '%merge into%' THEN 'Merge'
+              WHEN LOWER(${query}) LIKE 'with %' THEN 'Select'
+              WHEN ${query} LIKE 'SELECT %' THEN 'Select'
+              ELSE 'Other'
+              END
+          ;;
+}
+
+  dimension: derived_table {
+    type: string
+    sql: LOWER(SPLIT(SPLIT(${query},'"node_id": "model.huckberry.')[SAFE_OFFSET(1)],'"}')[SAFE_OFFSET(0)])   ;;
+  }
+
+  dimension: derived_table_source {
+    type: string
+    sql: SPLIT(${derived_table},'_')[SAFE_OFFSET(0)]   ;;
+  }
+
   dimension: table_definitions {
     hidden: yes
     sql: ${TABLE}.tableDefinitions ;;
